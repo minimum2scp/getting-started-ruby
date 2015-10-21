@@ -14,6 +14,18 @@ build:
               uname -a
               mount
         - script:
+            name: install ansible
+            code: |
+              apt-get update
+              apt-get install python-pip -y --no-install-recommends
+              pip install ansible
+        - script:
+            name: ansible
+            code: |
+              echo "[local]" > hosts
+              echo "127.0.0.1" >> hosts
+              ansible -i hosts -m setup all
+        - script:
             name: install docker
             code: |
               curl -sS https://get.docker.com | sh
