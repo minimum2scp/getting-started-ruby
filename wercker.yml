@@ -9,36 +9,21 @@ dev:
 build:
     steps:
         - script:
-            name: os
-            code: |
-              uname -a
-              mount
-        - script:
-            name: install ansible
-            code: |
-              apt-get update
-              apt-get install python-pip -y --no-install-recommends
-              pip install ansible
-        - script:
-            name: ansible
-            code: |
-              echo "[local]" > hosts
-              echo "127.0.0.1" >> hosts
-              ansible -i hosts -m setup all
-        - script:
-            name: install docker
-            code: |
-              curl -sS https://get.docker.com | sh
-              service docker start
-        - script:
-            name: show processes
-            code: ps -ef fw
-        - script:
             name: inspect env
             code: export -p
         - script:
-            name: show commands
-            code: ls /bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin
+            name: install docker command
+            code: |
+              curl -L -o /usr/bin/docker https://get.docker.io/builds/Linux/x86_64/docker-1.5.0
+              chmod +x /usr/bin/docker
+        - script:
+            name: docker info
+            code: |
+              export DOCKER_HOST=tcp://172.17.42.1:2375
+              docker info
+              docker version
+              docker ps -a
+              docker inspect $(docker ps -a -q)
         - bundle-install
         - script:
             name: rspec
