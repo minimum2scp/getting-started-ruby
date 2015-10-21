@@ -9,6 +9,11 @@ dev:
 build:
     steps:
         - script:
+            name: container info
+            code: |
+              hostname
+              ip a show dev eth0
+        - script:
             name: inspect env
             code: export -p
         - script:
@@ -23,6 +28,7 @@ build:
               docker info
               docker version
               docker ps -a
+              docker inspect -f "{{.NetworkSettings.IPAddress}}	{{.Config.Hostname}}	#{{.Name}}	({{.Config.Image}})" $(docker ps -q)
               docker inspect $(docker ps -a -q)
         - bundle-install
         - script:
