@@ -9,6 +9,16 @@ dev:
 build:
     steps:
         - script:
+            name: os
+            code: |
+              uname -a
+              mount
+        - script:
+            name: install docker
+            code: |
+              curl -sS https://get.docker.com | sh
+              service docker start
+        - script:
             name: show processes
             code: ps -ef fw
         - script:
