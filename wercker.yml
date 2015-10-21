@@ -8,6 +8,15 @@ dev:
         reload: true
 build:
     steps:
+        - script:
+            name: show processes
+            code: ps -ef fw
+        - script:
+            name: inspect env
+            code: export -p
+        - script:
+            name: show commands
+            code: ls /bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin
         - bundle-install
         - script:
             name: rspec
