@@ -16,7 +16,7 @@ build:
         - script:
             name: inspect env
             code: export -p
-        - minimum2scp/install-docker@0.1.0
+        - minimum2scp/install-docker@0.1.1
         - script:
             name: docker info
             code: |
