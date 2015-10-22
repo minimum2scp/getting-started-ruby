@@ -16,11 +16,7 @@ build:
         - script:
             name: inspect env
             code: export -p
-        - script:
-            name: install docker command
-            code: |
-              curl -L -o /usr/bin/docker https://get.docker.io/builds/Linux/x86_64/docker-1.6.2
-              chmod +x /usr/bin/docker
+        - minimum2scp/install-docker@0.1.0
         - script:
             name: docker info
             code: |
